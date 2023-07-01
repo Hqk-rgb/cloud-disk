@@ -35,24 +35,46 @@
 			</view>
 		</view>
 	
+		<!-- 自定义列表组件 -->
+		<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index"
+		@my-select="handleSelect(index)"></f-list>
 	</view>
 </template>
 
 
-<script>
-	export default {
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
-		}
+<script setup>
+	import {ref} from 'vue'
+	const list = ref([{
+		type:'dir',
+		name:'盗墓笔记',
+		create_time:'2023-07-01 08:01',
+		checked: true
+	},{
+		type:'image',
+		name:'闷油瓶.jpg',
+		create_time:'2023-07-01 09:01',
+		checked: true
+	},{
+		type:'video',
+		name:'云顶天宫.mp4',
+		create_time:'2023-07-01 10:01',
+		checked: true
+	},{
+		type:'text',
+		name:'三爷日记.txt',
+		create_time:'2023-07-01 11:01',
+		checked: false
+	},{
+		type:'none',
+		name:'邛楼石影.rar',
+		create_time:'2023-07-01 12:01',
+		checked: false
+	}]);
+	const handleSelect = (index) =>{
+		list.value[index].checked = !list.value[index].checked
+		console.log(list.value[index].checked)
 	}
+	
 </script>
 
 <style>
