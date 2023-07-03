@@ -4,13 +4,15 @@ if (!Array) {
   const _easycom_uni_nav_bar2 = common_vendor.resolveComponent("uni-nav-bar");
   const _easycom_f_list2 = common_vendor.resolveComponent("f-list");
   const _easycom_f_dialog2 = common_vendor.resolveComponent("f-dialog");
-  (_easycom_uni_nav_bar2 + _easycom_f_list2 + _easycom_f_dialog2)();
+  const _easycom_uni_popup2 = common_vendor.resolveComponent("uni-popup");
+  (_easycom_uni_nav_bar2 + _easycom_f_list2 + _easycom_f_dialog2 + _easycom_uni_popup2)();
 }
 const _easycom_uni_nav_bar = () => "../../components/uni-nav-bar/uni-nav-bar.js";
 const _easycom_f_list = () => "../../components/f-list/f-list.js";
 const _easycom_f_dialog = () => "../../components/f-dialog/f-dialog.js";
+const _easycom_uni_popup = () => "../../components/uni-popup/uni-popup.js";
 if (!Math) {
-  (_easycom_uni_nav_bar + _easycom_f_list + _easycom_f_dialog)();
+  (_easycom_uni_nav_bar + _easycom_f_list + _easycom_f_dialog + _easycom_uni_popup)();
 }
 const _sfc_main = {
   __name: "index",
@@ -116,15 +118,66 @@ const _sfc_main = {
       checkedList.value[0].name = renameValue.value;
       renameDialogRef.value.hidePopup();
     };
+    const addList = common_vendor.ref([{
+      icon: "icon-file-b-6",
+      color: "text-success",
+      name: "上传图片"
+    }, {
+      icon: "icon-file-b-9",
+      color: "text-primary",
+      name: "上传视频"
+    }, {
+      icon: "icon-file-b-8",
+      color: "text-muted",
+      name: "上传文件"
+    }, {
+      icon: "icon-file-b-2",
+      color: "text-warning",
+      name: "新建文件夹"
+    }]);
+    const addPopup = common_vendor.ref(null);
+    const openAddPopup = () => {
+      addPopup.value.open();
+    };
+    const newDirDialogRef = common_vendor.ref(null);
+    const newDirName = common_vendor.ref("");
+    const handleAddEvent = (item) => {
+      addPopup.value.close();
+      switch (item.name) {
+        case "新建文件夹":
+          newDirDialogRef.value.showPopup();
+      }
+    };
+    const handleNewDirConfirm = () => {
+      if (newDirName.value === "") {
+        return common_vendor.index.showToast({
+          title: "文件夹名不能为空",
+          icon: "none"
+        });
+      }
+      list.value.push({
+        type: "dir",
+        name: newDirName.value,
+        create_time: "2023-07-02 17:56",
+        checked: false
+      });
+      common_vendor.index.showToast({
+        title: "新建文件夹成功",
+        icon: "none"
+      });
+      newDirDialogRef.value.hidePopup();
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
-      }, common_vendor.unref(checkedList).length === 0 ? {} : {
-        b: common_vendor.o(($event) => handleCheckAll(false)),
-        c: common_vendor.t(common_vendor.unref(checkedList).length),
-        d: common_vendor.o(($event) => handleCheckAll(true))
+      }, common_vendor.unref(checkedList).length === 0 ? {
+        b: common_vendor.o(openAddPopup)
+      } : {
+        c: common_vendor.o(($event) => handleCheckAll(false)),
+        d: common_vendor.t(common_vendor.unref(checkedList).length),
+        e: common_vendor.o(($event) => handleCheckAll(true))
       }, {
-        e: common_vendor.f(list.value, (item, index, i0) => {
+        f: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: index,
             b: common_vendor.o(($event) => handleSelect(index), index),
@@ -135,9 +188,9 @@ const _sfc_main = {
             })
           };
         }),
-        f: common_vendor.unref(checkedList).length > 0
+        g: common_vendor.unref(checkedList).length > 0
       }, common_vendor.unref(checkedList).length > 0 ? {
-        g: common_vendor.f(common_vendor.unref(actions), (item, index, i0) => {
+        h: common_vendor.f(common_vendor.unref(actions), (item, index, i0) => {
           return {
             a: common_vendor.n(item.icon),
             b: common_vendor.t(item.name),
@@ -146,20 +199,43 @@ const _sfc_main = {
           };
         })
       } : {}, {
-        h: common_vendor.sr(deleteDialogRef, "682ffb32-3", {
+        i: common_vendor.sr(deleteDialogRef, "682ffb32-3", {
           "k": "deleteDialogRef"
         }),
-        i: common_vendor.p({
+        j: common_vendor.p({
           onConfirm: handleDeleteConfirm,
           onCancel: handleCancel
         }),
-        j: renameValue.value,
-        k: common_vendor.o(($event) => renameValue.value = $event.detail.value),
-        l: common_vendor.sr(renameDialogRef, "682ffb32-4", {
+        k: renameValue.value,
+        l: common_vendor.o(($event) => renameValue.value = $event.detail.value),
+        m: common_vendor.sr(renameDialogRef, "682ffb32-4", {
           "k": "renameDialogRef"
         }),
-        m: common_vendor.p({
+        n: common_vendor.p({
           onConfirm: handleRenameConfirm,
+          onCancel: handleCancel
+        }),
+        o: common_vendor.f(addList.value, (item, index, i0) => {
+          return {
+            a: common_vendor.n(item.icon + " " + item.color),
+            b: common_vendor.t(item.name),
+            c: index,
+            d: common_vendor.o(($event) => handleAddEvent(item), index)
+          };
+        }),
+        p: common_vendor.sr(addPopup, "682ffb32-5", {
+          "k": "addPopup"
+        }),
+        q: common_vendor.p({
+          type: "bottom"
+        }),
+        r: newDirName.value,
+        s: common_vendor.o(($event) => newDirName.value = $event.detail.value),
+        t: common_vendor.sr(newDirDialogRef, "682ffb32-6", {
+          "k": "newDirDialogRef"
+        }),
+        v: common_vendor.p({
+          onConfirm: handleNewDirConfirm,
           onCancel: handleCancel
         })
       });

@@ -8,7 +8,7 @@
 			</template>
 			<template #right class="flex">
 				<view style="width: 60rpx;height: 60rpx;"
-					class="flex align-center justify-center bg-light rounded-circle mr-3">
+					class="flex align-center justify-center bg-light rounded-circle mr-3" @tap="openAddPopup">
 					<text class="iconfont icon-zengjia"></text>
 				</view>
 				<view style="width: 60rpx;height: 60rpx;"
@@ -66,11 +66,35 @@
 
 		<!-- 删除对话框 -->
 		<f-dialog ref="deleteDialogRef" :onConfirm="handleDeleteConfirm" :onCancel="handleCancel">是否删除选中的文件</f-dialog>
-		
+
 		<!-- 重命名对话框 -->
 		<f-dialog ref="renameDialogRef" :onConfirm="handleRenameConfirm" :onCancel="handleCancel">
-			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名">
+			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;"
+				placeholder="重命名">
 		</f-dialog>
+
+		<!-- 添加操作条， type表示弹出层位置 -->
+		<uni-popup ref="addPopup" type="bottom">
+			<view class="bg-white flex" style="height: 200rpx">
+				<!-- 遍历addList数组，纵向flex布局 -->
+				<view class="flex-1 flex align-center justify-center flex-column" hover-class="bg-light"
+					v-for="(item,index) in addList" :key="index" @tap="handleAddEvent(item)">
+					<!-- 每个操作的图标，可以传入图标的名称和颜色 -->
+					<text style="width: 110rpx; height: 110rpx;"
+						class="flex align-center justify-center rounded-circle bg-light iconfont"
+						:class="item.icon + ' ' + item.color"></text>
+					<!-- 每个操作的名称 -->
+					<text class="font text-muted">{{ item.name }}</text>
+				</view>
+			</view>
+		</uni-popup>
+
+		<!-- 新建文件夹对话框 -->
+		<f-dialog ref="newDirDialogRef" :onConfirm="handleNewDirConfirm" :onCancel="handleCancel">
+			<input type="text" v-model="newDirName" class="flex-1 bg-light rounded px-2 " style="height: 95rpx;"
+				placeholder="新建文件夹名称" />
+		</f-dialog>
+
 	</view>
 </template>
 
@@ -80,7 +104,7 @@
 		ref,
 		computed
 	} from 'vue'
-	
+
 	const list = ref([{
 		type: 'dir',
 		name: '盗墓笔记',
@@ -157,7 +181,7 @@
 
 	//获取删除对话框元素
 	const deleteDialogRef = ref(null)
-	
+
 	//获取重命名对话框元素
 	const renameDialogRef = ref(null)
 
@@ -175,23 +199,23 @@
 				break;
 		}
 	}
-	
+
 	const handleDeleteConfirm = () => {
 		//对list进行过滤，留下未被选中的元素（选中的即被删除）
-		list.value = list.value.filter(item=>!item.checked);
+		list.value = list.value.filter(item => !item.checked);
 		uni.showToast({
 			title: '删除成功',
 			icon: 'success'
 		});
 	}
-	
+
 	const handleCancel = () => {
 		console.log('取消')
 	}
-	
+
 	//重命名
 	const renameValue = ref('')
-	
+
 	const handleRenameConfirm = () => {
 		if (renameValue.value === '') {
 			return uni.showToast({
@@ -202,6 +226,64 @@
 		//更新该元素的name值
 		checkedList.value[0].name = renameValue.value
 		renameDialogRef.value.hidePopup()
+	}
+
+	//添加文件
+	const addList = ref([{
+		icon: 'icon-file-b-6',
+		color: 'text-success',
+		name: '上传图片'
+	}, {
+		icon: 'icon-file-b-9',
+		color: 'text-primary',
+		name: '上传视频'
+	}, {
+		icon: 'icon-file-b-8',
+		color: 'text-muted',
+		name: '上传文件'
+	}, {
+		icon: 'icon-file-b-2',
+		color: 'text-warning',
+		name: '新建文件夹'
+	}])
+
+	const addPopup = ref(null)
+	//打开添加操作条
+	const openAddPopup = () => {
+		addPopup.value.open()
+	}
+
+	//新建文件夹
+	const newDirDialogRef = ref(null)
+	const newDirName = ref('')
+	//处理操作条的各种事件
+	const handleAddEvent = (item) => {
+		addPopup.value.close()
+		switch (item.name) {
+			case '新建文件夹':
+				newDirDialogRef.value.showPopup()
+		}
+	}
+
+	const handleNewDirConfirm = () => {
+		if (newDirName.value === '') {
+			return uni.showToast({
+				title: '文件夹名不能为空',
+				icon: 'none'
+			})
+		}
+		//添加新的文件到list数组
+		list.value.push({
+			type: 'dir',
+			name: newDirName.value,
+			create_time: '2023-07-02 17:56',
+			checked: false
+		})
+		uni.showToast({
+			title: '新建文件夹成功',
+			icon: 'none'
+		})
+		newDirDialogRef.value.hidePopup()
 	}
 </script>
 
