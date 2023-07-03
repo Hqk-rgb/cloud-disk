@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "uni-nav-bar": "../../components/uni-nav-bar/uni-nav-bar",
-    "f-list": "../../components/f-list/f-list"
+    "f-list": "../../components/f-list/f-list",
+    "f-dialog": "../../components/f-dialog/f-dialog"
   }
 }

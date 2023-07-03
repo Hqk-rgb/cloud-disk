@@ -3,12 +3,14 @@ const common_vendor = require("../../common/vendor.js");
 if (!Array) {
   const _easycom_uni_nav_bar2 = common_vendor.resolveComponent("uni-nav-bar");
   const _easycom_f_list2 = common_vendor.resolveComponent("f-list");
-  (_easycom_uni_nav_bar2 + _easycom_f_list2)();
+  const _easycom_f_dialog2 = common_vendor.resolveComponent("f-dialog");
+  (_easycom_uni_nav_bar2 + _easycom_f_list2 + _easycom_f_dialog2)();
 }
 const _easycom_uni_nav_bar = () => "../../components/uni-nav-bar/uni-nav-bar.js";
 const _easycom_f_list = () => "../../components/f-list/f-list.js";
+const _easycom_f_dialog = () => "../../components/f-dialog/f-dialog.js";
 if (!Math) {
-  (_easycom_uni_nav_bar + _easycom_f_list)();
+  (_easycom_uni_nav_bar + _easycom_f_list + _easycom_f_dialog)();
 }
 const _sfc_main = {
   __name: "index",
@@ -80,6 +82,24 @@ const _sfc_main = {
         }
       ];
     });
+    const deleteDialogRef = common_vendor.ref(null);
+    const handleBottomEvent = (item) => {
+      switch (item.name) {
+        case "删除":
+          deleteDialogRef.value.showPopup();
+          break;
+      }
+    };
+    const handleDeleteConfirm = () => {
+      list.value = list.value.filter((item) => !item.checked);
+      common_vendor.index.showToast({
+        title: "删除成功",
+        icon: "success"
+      });
+    };
+    const handleCancel = () => {
+      console.log("取消");
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
@@ -105,10 +125,19 @@ const _sfc_main = {
           return {
             a: common_vendor.n(item.icon),
             b: common_vendor.t(item.name),
-            c: index
+            c: index,
+            d: common_vendor.o(($event) => handleBottomEvent(item), index)
           };
         })
-      } : {});
+      } : {}, {
+        h: common_vendor.sr(deleteDialogRef, "682ffb32-3", {
+          "k": "deleteDialogRef"
+        }),
+        i: common_vendor.p({
+          onConfirm: handleDeleteConfirm,
+          onCancel: handleCancel
+        })
+      });
     };
   }
 };
