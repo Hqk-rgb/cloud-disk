@@ -83,10 +83,15 @@ const _sfc_main = {
       ];
     });
     const deleteDialogRef = common_vendor.ref(null);
+    const renameDialogRef = common_vendor.ref(null);
     const handleBottomEvent = (item) => {
       switch (item.name) {
         case "删除":
           deleteDialogRef.value.showPopup();
+          break;
+        case "重命名":
+          renameValue.value = checkedList.value[0].name;
+          renameDialogRef.value.showPopup();
           break;
       }
     };
@@ -99,6 +104,17 @@ const _sfc_main = {
     };
     const handleCancel = () => {
       console.log("取消");
+    };
+    const renameValue = common_vendor.ref("");
+    const handleRenameConfirm = () => {
+      if (renameValue.value === "") {
+        return common_vendor.index.showToast({
+          title: "文件名不能为空",
+          icon: "none"
+        });
+      }
+      checkedList.value[0].name = renameValue.value;
+      renameDialogRef.value.hidePopup();
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -135,6 +151,15 @@ const _sfc_main = {
         }),
         i: common_vendor.p({
           onConfirm: handleDeleteConfirm,
+          onCancel: handleCancel
+        }),
+        j: renameValue.value,
+        k: common_vendor.o(($event) => renameValue.value = $event.detail.value),
+        l: common_vendor.sr(renameDialogRef, "682ffb32-4", {
+          "k": "renameDialogRef"
+        }),
+        m: common_vendor.p({
+          onConfirm: handleRenameConfirm,
           onCancel: handleCancel
         })
       });

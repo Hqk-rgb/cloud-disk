@@ -66,6 +66,11 @@
 
 		<!-- 删除对话框 -->
 		<f-dialog ref="deleteDialogRef" :onConfirm="handleDeleteConfirm" :onCancel="handleCancel">是否删除选中的文件</f-dialog>
+		
+		<!-- 重命名对话框 -->
+		<f-dialog ref="renameDialogRef" :onConfirm="handleRenameConfirm" :onCancel="handleCancel">
+			<input type="text" v-model="renameValue" class="flex-1 bg-light rounded px-2" style="height: 95rpx;" placeholder="重命名">
+		</f-dialog>
 	</view>
 </template>
 
@@ -106,6 +111,7 @@
 		list.value[index].checked = !list.value[index].checked
 		console.log(list.value[index].checked)
 	}
+
 
 	//计算属性：通过数组过滤得到选中的元素
 	const checkedList = computed(() => {
@@ -151,12 +157,19 @@
 
 	//获取删除对话框元素
 	const deleteDialogRef = ref(null)
+	
+	//获取重命名对话框元素
+	const renameDialogRef = ref(null)
 
 	//底部操作原理 （根据传入的item进行判断，执行不同操作）
 	const handleBottomEvent = (item) => {
 		switch (item.name) {
 			case '删除':
 				deleteDialogRef.value.showPopup()
+				break;
+			case '重命名':
+				renameValue.value = checkedList.value[0].name
+				renameDialogRef.value.showPopup()
 				break;
 			default:
 				break;
@@ -174,6 +187,21 @@
 	
 	const handleCancel = () => {
 		console.log('取消')
+	}
+	
+	//重命名
+	const renameValue = ref('')
+	
+	const handleRenameConfirm = () => {
+		if (renameValue.value === '') {
+			return uni.showToast({
+				title: '文件名不能为空',
+				icon: 'none'
+			})
+		}
+		//更新该元素的name值
+		checkedList.value[0].name = renameValue.value
+		renameDialogRef.value.hidePopup()
 	}
 </script>
 
