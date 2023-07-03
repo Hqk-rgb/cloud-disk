@@ -50,9 +50,11 @@ const _sfc_main = {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
       }, common_vendor.unref(checkedList).length === 0 ? {} : {
-        b: common_vendor.t(common_vendor.unref(checkedList).length)
+        b: common_vendor.o(($event) => _ctx.handleCheckAll(false)),
+        c: common_vendor.t(common_vendor.unref(checkedList).length),
+        d: common_vendor.o(($event) => _ctx.handleCheckAll(true))
       }, {
-        c: common_vendor.f(list.value, (item, index, i0) => {
+        e: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: index,
             b: common_vendor.o(($event) => handleSelect(index), index),
