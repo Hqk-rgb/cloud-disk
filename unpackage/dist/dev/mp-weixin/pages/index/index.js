@@ -46,13 +46,47 @@ const _sfc_main = {
     const checkedList = common_vendor.computed(() => {
       return list.value.filter((item) => item.checked);
     });
+    const handleCheckAll = (checked) => {
+      list.value.forEach((item) => {
+        item.checked = checked;
+      });
+    };
+    const actions = common_vendor.computed(() => {
+      if (checkedList.value.length > 1) {
+        return [{
+          icon: "icon-xiazai",
+          name: "下载"
+        }, {
+          icon: "icon-shanchu",
+          name: "删除"
+        }];
+      }
+      return [
+        {
+          icon: "icon-xiazai",
+          name: "下载"
+        },
+        {
+          icon: "icon-fenxiang-1",
+          name: "分享"
+        },
+        {
+          icon: "icon-shanchu",
+          name: "删除"
+        },
+        {
+          icon: "icon-chongmingming",
+          name: "重命名"
+        }
+      ];
+    });
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
       }, common_vendor.unref(checkedList).length === 0 ? {} : {
-        b: common_vendor.o(($event) => _ctx.handleCheckAll(false)),
+        b: common_vendor.o(($event) => handleCheckAll(false)),
         c: common_vendor.t(common_vendor.unref(checkedList).length),
-        d: common_vendor.o(($event) => _ctx.handleCheckAll(true))
+        d: common_vendor.o(($event) => handleCheckAll(true))
       }, {
         e: common_vendor.f(list.value, (item, index, i0) => {
           return {
@@ -64,8 +98,17 @@ const _sfc_main = {
               index
             })
           };
+        }),
+        f: common_vendor.unref(checkedList).length > 0
+      }, common_vendor.unref(checkedList).length > 0 ? {
+        g: common_vendor.f(common_vendor.unref(actions), (item, index, i0) => {
+          return {
+            a: common_vendor.n(item.icon),
+            b: common_vendor.t(item.name),
+            c: index
+          };
         })
-      });
+      } : {});
     };
   }
 };

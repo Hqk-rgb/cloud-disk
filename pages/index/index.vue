@@ -25,7 +25,7 @@
 			<template #left>
 				<text class="ml-3 text-light font-md">首页</text>
 			</template>
-			<template #right>
+			<template #right class="flex">
 				<view style="width: 60rpx;height: 60rpx;"
 					class="flex align-center justify-center bg-light rounded-circle mr-3">
 					<text class="iconfont icon-zengjia"></text>
@@ -68,6 +68,21 @@
 		<!-- 自定义列表组件 -->
 		<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index"
 		@my-select="handleSelect(index)"></f-list>
+		
+		<!-- 底部操作条 -->
+		<!-- 选中元素大于0，才会出现操作条 -->
+		<view v-if="checkedList.length>0">
+		<!-- 设置操作条容器样式：高度、颜色。。。 -->
+			<view style="height: 115rpx;" class="flex align-stretch bg-main text-white fixed-bottom">
+				<!-- 根据操作元素个数等分容器 -->
+				<view class="flex-1 flex flex-column align-center justify-center"
+				style="line-height: 1.5;"
+				v-for="(item,index) in actions"
+				:key="index"
+				hover-class="bg-hover-primary">
+				<text class="iconfont" :class="item.icon"></text>{{item.name}}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -116,6 +131,35 @@
 			item.checked = checked
 		})
 	}
+	
+	//操作菜单
+	const actions = computed(()=>{
+		if (checkedList.value.length>1){
+			return[{
+				icon:"icon-xiazai",
+				name:"下载"
+			},{
+				icon:"icon-shanchu",
+				name:"删除"
+			},]
+		}
+		return [{
+			icon:"icon-xiazai",
+			name:"下载"
+		},
+		{
+			icon:"icon-fenxiang-1",
+			name:"分享"
+		},
+		{
+			icon:"icon-shanchu",
+			name:"删除"
+		},
+		{
+			icon:"icon-chongmingming",
+			name:"重命名"
+		}]
+	})
 	
 </script>
 
