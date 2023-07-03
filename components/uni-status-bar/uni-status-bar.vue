@@ -1,5 +1,5 @@
 <template>
-  <view :style="{ height: statusBarHeight }" class="uni-status-bar bg-primary">
+  <view :style="{ height: statusBarHeight }" class="uni-status-bar bg-main">
     <slot />
   </view>
 </template>
@@ -16,8 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-.uni-status-bar {
-  // height: 20px;
-  height: var(--status-bar-height);
-}
+// .uni-status-bar {
+//   height: var(--status-bar-height);
+// }
 </style>
