@@ -1,0 +1,1 @@
+<view style="height:100vh"><video src="{{a}}" controls autoplay style="width:750rpx;height:100vh" bindended="{{b}}"></video></view>

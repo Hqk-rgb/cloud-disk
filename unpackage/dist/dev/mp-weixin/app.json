@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/list/list",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/video/video"
   ],
   "window": {
     "navigationBarTextStyle": "white",

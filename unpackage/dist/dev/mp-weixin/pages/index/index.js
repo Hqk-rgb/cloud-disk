@@ -21,17 +21,35 @@ const _sfc_main = {
       type: "dir",
       name: "盗墓笔记",
       create_time: "2023-07-01 08:01",
-      checked: true
+      checked: false
     }, {
       type: "image",
       name: "闷油瓶.jpg",
+      url: "https://s1.ax1x.com/2023/07/04/pCsYo1U.jpg",
       create_time: "2023-07-01 09:01",
-      checked: true
+      checked: false,
+      download: 100
     }, {
       type: "video",
-      name: "云顶天宫.mp4",
+      name: "CG混剪.mp4",
+      //data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/video/3-1.mp4',
+      data: "https://king-hf-bucket.oss-cn-shanghai.aliyuncs.com/video/cg.mp4",
       create_time: "2023-07-01 10:01",
-      checked: true
+      checked: false
+    }, {
+      type: "image",
+      name: "壁纸.jpg",
+      url: "https://i2.100024.xyz/2023/01/26/3kq106.webp",
+      create_time: "2023-07-01 10:01",
+      checked: false,
+      download: 90
+    }, {
+      type: "image",
+      name: "mqxu.jpg",
+      url: "https://s1.ax1x.com/2023/04/03/pphvfu4.jpg",
+      create_time: "2023-07-01 10:51",
+      checked: true,
+      download: 80
     }, {
       type: "text",
       name: "三爷日记.txt",
@@ -167,6 +185,25 @@ const _sfc_main = {
       });
       newDirDialogRef.value.hidePopup();
     };
+    const doEvent = (item) => {
+      console.log(item);
+      switch (item.type) {
+        case "image":
+          let images = list.value.filter((item2) => {
+            return item2.type === "image";
+          });
+          common_vendor.index.previewImage({
+            current: item.url,
+            urls: images.map((item2) => item2.url)
+          });
+          break;
+        case "video":
+          common_vendor.index.navigateTo({
+            url: "../video/video?url=" + item.data + "&title=" + item.name
+          });
+          break;
+      }
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
@@ -180,9 +217,10 @@ const _sfc_main = {
         f: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: index,
-            b: common_vendor.o(($event) => handleSelect(index), index),
-            c: "682ffb32-2-" + i0,
-            d: common_vendor.p({
+            b: common_vendor.o(($event) => doEvent(item), index),
+            c: common_vendor.o(($event) => handleSelect(index), index),
+            d: "682ffb32-2-" + i0,
+            e: common_vendor.p({
               item,
               index
             })

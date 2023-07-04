@@ -47,7 +47,7 @@
 
 <template>
 	<!-- 左中右三部分 -->
-	<view class="p-3 flex align-center border bottom-border">
+	<view class="p-3 flex align-center border bottom-border" @click="emits('click')">
 		<!-- 左侧：用计算属性得出动态样式，显示不同类型的文件图标 -->
 		<text class="iconfont" :class="iconClass" style="font-size: 60rpx;"></text>
 
@@ -58,7 +58,7 @@
 		</view>
 
 		<!-- 右侧:根据传入的对象中的checked属性，进行条件渲染 -->
-		<view class="ml-auto flex align-center justify-center" @click="onSelect">
+		<view class="ml-auto flex align-center justify-center" @click.stop="onSelect">
 			<!-- 未选中，画一个灰色的圆圈 -->
 			<text v-if="!props.item.checked" style="width:30rpx;height: 30rpx;border: 1px soild #999;"
 				class="rounded-circle"></text>

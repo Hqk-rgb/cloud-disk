@@ -29,7 +29,16 @@
 		"style": {
 			"navigationBarTitleText": "我的"
 		}
-	}],
+	}    ,{
+            "path" : "pages/video/video",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "cloud-disk-app",

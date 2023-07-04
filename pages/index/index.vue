@@ -47,7 +47,8 @@
 		</view>
 
 		<!-- 自定义列表组件 -->
-		<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @my-select="handleSelect(index)">
+		<f-list v-for="(item,index) in list" :key="index" :item="item" :index="index" @click="doEvent(item)"
+			@my-select="handleSelect(index)">
 		</f-list>
 
 		<!-- 底部操作条 -->
@@ -109,17 +110,35 @@
 		type: 'dir',
 		name: '盗墓笔记',
 		create_time: '2023-07-01 08:01',
-		checked: true
+		checked: false
 	}, {
 		type: 'image',
 		name: '闷油瓶.jpg',
+		url: 'https://s1.ax1x.com/2023/07/04/pCsYo1U.jpg',
 		create_time: '2023-07-01 09:01',
-		checked: true
+		checked: false,
+		download: 100
 	}, {
 		type: 'video',
-		name: '云顶天宫.mp4',
+		name: 'CG混剪.mp4',
+		//data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/video/3-1.mp4',
+		data: 'https://king-hf-bucket.oss-cn-shanghai.aliyuncs.com/video/cg.mp4',
 		create_time: '2023-07-01 10:01',
-		checked: true
+		checked: false
+	}, {
+		type: 'image',
+		name: '壁纸.jpg',
+		url: 'https://i2.100024.xyz/2023/01/26/3kq106.webp',
+		create_time: '2023-07-01 10:01',
+		checked: false,
+		download: 90
+	}, {
+		type: 'image',
+		name: 'mqxu.jpg',
+		url: 'https://s1.ax1x.com/2023/04/03/pphvfu4.jpg',
+		create_time: '2023-07-01 10:51',
+		checked: true,
+		download: 80
 	}, {
 		type: 'text',
 		name: '三爷日记.txt',
@@ -284,6 +303,30 @@
 			icon: 'none'
 		})
 		newDirDialogRef.value.hidePopup()
+	}
+
+	//列表点击事件
+	const doEvent = (item) => {
+		console.log(item);
+		switch (item.type) {
+			case 'image':
+				let images = list.value.filter(item => {
+					return item.type === 'image';
+				});
+				//预览图片
+				uni.previewImage({
+					current: item.url,
+					urls: images.map(item => item.url)
+				});
+				break;
+			case 'video':
+				uni.navigateTo({
+					url: '../video/video?url=' + item.data + '&title=' + item.name
+				})
+				break;
+			default:
+				break;
+		}
 	}
 </script>
 

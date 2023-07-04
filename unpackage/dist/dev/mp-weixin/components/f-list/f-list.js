@@ -46,7 +46,8 @@ const _sfc_main = {
         c: common_vendor.t(props.item.create_time),
         d: !props.item.checked
       }, !props.item.checked ? {} : {}, {
-        e: common_vendor.o(onSelect)
+        e: common_vendor.o(onSelect),
+        f: common_vendor.o(($event) => emits("click"))
       });
     };
   }
