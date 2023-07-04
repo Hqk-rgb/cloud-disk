@@ -34,7 +34,7 @@ const _sfc_main = {
       name: "CG混剪.mp4",
       //data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/video/3-1.mp4',
       data: "https://king-hf-bucket.oss-cn-shanghai.aliyuncs.com/video/cg.mp4",
-      create_time: "2023-07-01 10:01",
+      create_time: "2023-06-01 10:01",
       checked: false
     }, {
       type: "image",
@@ -53,7 +53,7 @@ const _sfc_main = {
     }, {
       type: "text",
       name: "三爷日记.txt",
-      create_time: "2023-07-01 11:01",
+      create_time: "2023-04-01 11:01",
       checked: false
     }, {
       type: "none",
@@ -204,17 +204,32 @@ const _sfc_main = {
           break;
       }
     };
+    const sortIndex = common_vendor.ref(0);
+    const sortOptions = common_vendor.ref([{
+      name: "按名称排序"
+    }, {
+      name: "按时间排序"
+    }]);
+    const sortPopup = common_vendor.ref(null);
+    const openSortPopup = () => {
+      sortPopup.value.open();
+    };
+    const changeSort = (index) => {
+      sortIndex.value = index;
+      sortPopup.value.close();
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.unref(checkedList).length === 0
       }, common_vendor.unref(checkedList).length === 0 ? {
-        b: common_vendor.o(openAddPopup)
+        b: common_vendor.o(openAddPopup),
+        c: common_vendor.o(openSortPopup)
       } : {
-        c: common_vendor.o(($event) => handleCheckAll(false)),
-        d: common_vendor.t(common_vendor.unref(checkedList).length),
-        e: common_vendor.o(($event) => handleCheckAll(true))
+        d: common_vendor.o(($event) => handleCheckAll(false)),
+        e: common_vendor.t(common_vendor.unref(checkedList).length),
+        f: common_vendor.o(($event) => handleCheckAll(true))
       }, {
-        f: common_vendor.f(list.value, (item, index, i0) => {
+        g: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: index,
             b: common_vendor.o(($event) => doEvent(item), index),
@@ -226,9 +241,9 @@ const _sfc_main = {
             })
           };
         }),
-        g: common_vendor.unref(checkedList).length > 0
+        h: common_vendor.unref(checkedList).length > 0
       }, common_vendor.unref(checkedList).length > 0 ? {
-        h: common_vendor.f(common_vendor.unref(actions), (item, index, i0) => {
+        i: common_vendor.f(common_vendor.unref(actions), (item, index, i0) => {
           return {
             a: common_vendor.n(item.icon),
             b: common_vendor.t(item.name),
@@ -237,23 +252,23 @@ const _sfc_main = {
           };
         })
       } : {}, {
-        i: common_vendor.sr(deleteDialogRef, "682ffb32-3", {
+        j: common_vendor.sr(deleteDialogRef, "682ffb32-3", {
           "k": "deleteDialogRef"
         }),
-        j: common_vendor.p({
+        k: common_vendor.p({
           onConfirm: handleDeleteConfirm,
           onCancel: handleCancel
         }),
-        k: renameValue.value,
-        l: common_vendor.o(($event) => renameValue.value = $event.detail.value),
-        m: common_vendor.sr(renameDialogRef, "682ffb32-4", {
+        l: renameValue.value,
+        m: common_vendor.o(($event) => renameValue.value = $event.detail.value),
+        n: common_vendor.sr(renameDialogRef, "682ffb32-4", {
           "k": "renameDialogRef"
         }),
-        n: common_vendor.p({
+        o: common_vendor.p({
           onConfirm: handleRenameConfirm,
           onCancel: handleCancel
         }),
-        o: common_vendor.f(addList.value, (item, index, i0) => {
+        p: common_vendor.f(addList.value, (item, index, i0) => {
           return {
             a: common_vendor.n(item.icon + " " + item.color),
             b: common_vendor.t(item.name),
@@ -261,20 +276,34 @@ const _sfc_main = {
             d: common_vendor.o(($event) => handleAddEvent(item), index)
           };
         }),
-        p: common_vendor.sr(addPopup, "682ffb32-5", {
+        q: common_vendor.sr(addPopup, "682ffb32-5", {
           "k": "addPopup"
         }),
-        q: common_vendor.p({
+        r: common_vendor.p({
           type: "bottom"
         }),
-        r: newDirName.value,
-        s: common_vendor.o(($event) => newDirName.value = $event.detail.value),
-        t: common_vendor.sr(newDirDialogRef, "682ffb32-6", {
+        s: newDirName.value,
+        t: common_vendor.o(($event) => newDirName.value = $event.detail.value),
+        v: common_vendor.sr(newDirDialogRef, "682ffb32-6", {
           "k": "newDirDialogRef"
         }),
-        v: common_vendor.p({
+        w: common_vendor.p({
           onConfirm: handleNewDirConfirm,
           onCancel: handleCancel
+        }),
+        x: common_vendor.f(sortOptions.value, (item, index, i0) => {
+          return {
+            a: common_vendor.t(item.name),
+            b: index,
+            c: common_vendor.n(index === sortIndex.value ? "text-main" : "text-dark"),
+            d: common_vendor.o(($event) => changeSort(index), index)
+          };
+        }),
+        y: common_vendor.sr(sortPopup, "682ffb32-7", {
+          "k": "sortPopup"
+        }),
+        z: common_vendor.p({
+          type: "bottom"
         })
       });
     };

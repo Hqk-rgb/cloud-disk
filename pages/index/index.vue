@@ -12,7 +12,7 @@
 					<text class="iconfont icon-zengjia"></text>
 				</view>
 				<view style="width: 60rpx;height: 60rpx;"
-					class="flex align-center justify-center bg-light rounded-circle mr-3">
+					class="flex align-center justify-center bg-light rounded-circle mr-3" @tap="openSortPopup">
 					<text class="iconfont icon-gengduo"></text>
 				</view>
 
@@ -96,6 +96,15 @@
 				placeholder="新建文件夹名称" />
 		</f-dialog>
 
+		<!-- 文件排序对话框，由底部弹出，遍历排序操作数组 -->
+		<uni-popup ref="sortPopup" type="bottom">
+			<view class="bg-white">
+				<view v-for="(item,index) in sortOptions" :key="index"
+				class="flex align-center justify-center py-3 border-bottom border-light-secondary"
+				 :class="index===sortIndex ? 'text-main':'text-dark'" hover-class="bg-light"
+				  @click="changeSort(index)">{{item.name}}</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -123,7 +132,7 @@
 		name: 'CG混剪.mp4',
 		//data: 'https://niit-soft.oss-cn-hangzhou.aliyuncs.com/video/3-1.mp4',
 		data: 'https://king-hf-bucket.oss-cn-shanghai.aliyuncs.com/video/cg.mp4',
-		create_time: '2023-07-01 10:01',
+		create_time: '2023-06-01 10:01',
 		checked: false
 	}, {
 		type: 'image',
@@ -142,7 +151,7 @@
 	}, {
 		type: 'text',
 		name: '三爷日记.txt',
-		create_time: '2023-07-01 11:01',
+		create_time: '2023-04-01 11:01',
 		checked: false
 	}, {
 		type: 'none',
@@ -327,6 +336,23 @@
 			default:
 				break;
 		}
+	}
+
+	//文件排序相关
+	const sortIndex = ref(0)
+	const sortOptions = ref([{
+		name: '按名称排序'
+	},{
+		name: '按时间排序'
+	}])
+	
+	const sortPopup = ref(null)
+	const openSortPopup = () => {
+		sortPopup.value.open()
+	}
+	const changeSort = (index) => {
+		sortIndex.value = index
+		sortPopup.value.close()
 	}
 </script>
 
