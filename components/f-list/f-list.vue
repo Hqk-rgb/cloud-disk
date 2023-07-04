@@ -6,6 +6,10 @@
 	const props = defineProps({
 		item: Object,
 		index: [Number, String],
+		showRight: {
+			type: Boolean,
+			default: true
+		},
 		checked: Boolean
 	})
 	const icons = reactive({
@@ -58,13 +62,28 @@
 		</view>
 
 		<!-- 右侧:根据传入的对象中的checked属性，进行条件渲染 -->
-		<view class="ml-auto flex align-center justify-center" @click.stop="onSelect">
-			<!-- 未选中，画一个灰色的圆圈 -->
-			<text v-if="!props.item.checked" style="width:30rpx;height: 30rpx;border: 1px soild #999;"
-				class="rounded-circle"></text>
-			<!-- 选中，用字体图标 -->
-			<text v-else class="iconfont icon-xuanze-yixuan text-primary" style="font-size: 20px;"></text>
+		<view v-if="props.showRight" class="ml-auto">
+			<slot>
+				<view class="flex align-center justify-center" style="width: 70rpx;height: 70rpx" @click.stop="onSelect">
+					<!-- 未选中，画一个灰色的圆圈 -->
+					<text v-if="!props.item.checked" style="width:25rpx;height: 25rpx;"
+						class="rounded-circle border"></text>
+					<!-- 选中，用字体图标 -->
+					<text v-else class="iconfont icon-xuanze-yixuan text-primary" style="font-size: 25px;"></text>
+				</view>
+			</slot>
 		</view>
+		<!-- bottom具名插槽 -->
+		<slot name="bottom"></slot>
+		
+		
+		<!-- <view class="ml-auto flex align-center justify-center" @click.stop="onSelect"> -->
+			<!-- 未选中，画一个灰色的圆圈 -->
+			<!-- <text v-if="!props.item.checked" style="width:30rpx;height: 30rpx;border: 1px soild #999;"
+				class="rounded-circle"></text> -->
+			<!-- 选中，用字体图标 -->
+			<!-- <text v-else class="iconfont icon-xuanze-yixuan text-primary" style="font-size: 20px;"></text>
+		</view> -->
 	</view>
 
 

@@ -100,9 +100,9 @@
 		<uni-popup ref="sortPopup" type="bottom">
 			<view class="bg-white">
 				<view v-for="(item,index) in sortOptions" :key="index"
-				class="flex align-center justify-center py-3 border-bottom border-light-secondary"
-				 :class="index===sortIndex ? 'text-main':'text-dark'" hover-class="bg-light"
-				  @click="changeSort(index)">{{item.name}}</view>
+					class="flex align-center justify-center py-3 border-bottom border-light-secondary"
+					:class="index===sortIndex ? 'text-main':'text-dark'" hover-class="bg-light"
+					@click="changeSort(index)">{{item.name}}</view>
 			</view>
 		</uni-popup>
 	</view>
@@ -152,12 +152,14 @@
 		type: 'text',
 		name: '三爷日记.txt',
 		create_time: '2023-04-01 11:01',
-		checked: false
+		checked: false,
+		download: 100
 	}, {
 		type: 'none',
 		name: '邛楼石影.rar',
 		create_time: '2023-07-01 12:01',
-		checked: false
+		checked: false,
+		download: 99
 	}]);
 	const handleSelect = (index) => {
 		list.value[index].checked = !list.value[index].checked
@@ -342,10 +344,10 @@
 	const sortIndex = ref(0)
 	const sortOptions = ref([{
 		name: '按名称排序'
-	},{
+	}, {
 		name: '按时间排序'
 	}])
-	
+
 	const sortPopup = ref(null)
 	const openSortPopup = () => {
 		sortPopup.value.open()
@@ -354,6 +356,8 @@
 		sortIndex.value = index
 		sortPopup.value.close()
 	}
+
+	
 </script>
 
 <style>
