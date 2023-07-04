@@ -1,19 +1,37 @@
 <template>
 	<view>
-		我的
+		<view class="p-3 flex align-center">
+			<image src="https://s1.ax1x.com/2023/03/25/ppDEXBq.png" style="width: 180rpx;height: 180rpx;border-radius: 50%;"></image>
+			<view class="flex-1 flex flex-column text-muted font">
+				<view class="flex align-end">
+					<text class="font-md text-dark ml-3">王瀚锋</text>
+				</view>
+				<text class="pr-2 ml-3">软件工程师</text>
+			</view>
+		</view>
+		<view class="bg-light" style="height: 20rpx;"></view>
+		<view class="p-3" >
+			<progress class="mb-2" percent="20" active stroke-width="5"></progress>
+			<view class="flex align-center justify-between font">
+				<text class="text-light-muted">总量：500GB</text>
+				<text class="text-warning">已用：100GB</text>
+			</view>
+		</view>
+		<view class="bg-light" style="height: 20rpx;"></view>
+		<view class="flex justify-between p-3">
+			<text class="text-muted font">设置</text>
+			<image src="../../static/arrow-right.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
+		</view>
+		<view class="bg-main text-white flex align-center justify-center font-md py-1 mx-2 rounded-circle"
+		hover-class="bg-main-hover" @click="logout">退出登录</view>
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
+<script setup> 
+	const logout = () => {
+		uni.navigateTo({
+			url: '../login/login'
+		})
 	}
 </script>
 

@@ -5,6 +5,10 @@ const _sfc_main = {
   props: {
     item: Object,
     index: [Number, String],
+    showRight: {
+      type: Boolean,
+      default: true
+    },
     checked: Boolean
   },
   emits: ["my-select"],
@@ -44,10 +48,13 @@ const _sfc_main = {
         a: common_vendor.n(common_vendor.unref(iconClass)),
         b: common_vendor.t(props.item.name),
         c: common_vendor.t(props.item.create_time),
-        d: !props.item.checked
+        d: props.showRight
+      }, props.showRight ? common_vendor.e({
+        e: !props.item.checked
       }, !props.item.checked ? {} : {}, {
-        e: common_vendor.o(onSelect),
-        f: common_vendor.o(($event) => emits("click"))
+        f: common_vendor.o(onSelect)
+      }) : {}, {
+        g: common_vendor.o(($event) => emits("click"))
       });
     };
   }

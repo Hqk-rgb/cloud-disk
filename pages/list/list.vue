@@ -94,7 +94,7 @@
 							<text class="ml-1">{{item.download}}</text>
 						</view>
 						<progress slot="bottom" :percent="item.download" activeColor="#009CFF"
-							:stroke-width="4"></progress>
+							:stroke-width="4" style="width: 100rpx;"></progress>
 					</f-list>
 
 					<view class="p-2 border-bottom border-light-secondary font text-muted">
