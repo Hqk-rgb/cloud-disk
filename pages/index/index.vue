@@ -114,7 +114,19 @@
 		ref,
 		computed
 	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
 
+	onLoad(()=>{
+		uni.request({
+			url: 'http://127.0.0.1:7001/list',
+			success: (res) => {
+				console.log(res.data);
+			}
+		})
+	})
+	
 	const list = ref([{
 		type: 'dir',
 		name: '盗墓笔记',
