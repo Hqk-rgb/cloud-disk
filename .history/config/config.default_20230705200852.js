@@ -57,11 +57,6 @@ module.exports = (appInfo) => {
     throwError: true,
   };
 
-  // add your user config here
-  const userConfig = {
-    // myAppName: 'egg',
-  };
-
   return {
     ...config,
     ...userConfig,

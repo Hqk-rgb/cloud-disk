@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = (option, app) => {
   return async function errorHandler(ctx, next) {
     try {

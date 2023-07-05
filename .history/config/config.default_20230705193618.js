@@ -24,7 +24,7 @@ module.exports = (appInfo) => {
       enable: false,
     },
     // 跨域白名单
-    // domainWhiteList: ["http://loaclhost:3000"],
+    domainWhiteList: ["http://loaclhost:3000"],
   };
 
   // 允许跨域的方法
