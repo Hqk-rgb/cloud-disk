@@ -74,7 +74,7 @@ module.exports = (appInfo) => {
 
   //jwt配置
   config.jwt = {
-    secret: "qhdgw@45ncashdaksh2!#@3nxjdas*_672",
+    secret: "",
   };
 
   // add your user config here
