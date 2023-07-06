@@ -57,9 +57,8 @@ module.exports = (appInfo) => {
     throwError: true,
   };
 
-  //crypto加密秘钥
   config.crypto = {
-    secret: "qhdgw@45ncashdaksh2!#@3nxjdas*_672",
+    secret: "qhdgw@45ncashdasksh2!#",
   };
 
   // add your user config here
