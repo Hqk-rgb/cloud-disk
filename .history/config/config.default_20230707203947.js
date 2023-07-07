@@ -119,15 +119,6 @@ module.exports = (appInfo) => {
       ".pdf",
       ".xls",
       ".xlsx",
-      // 允许上传的压缩文件类型
-      ".zip",
-      ".gz",
-      ".tgz",
-      ".gzip",
-      // 允许上传的音视频文件类型
-      ".mp3",
-      ".mp4",
-      ".avi",
     ],
   };
 

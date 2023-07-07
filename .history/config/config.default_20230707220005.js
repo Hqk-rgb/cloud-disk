@@ -81,7 +81,7 @@ module.exports = (appInfo) => {
     client: {
       accessKeyId: "LTAI5tPr81ofKDqjFNPcCRqM",
       accessKeySecret: "e9rsuHOJunSIjhRiZomOxIkiETcEt4",
-      bucket: "king-hf-bucket",
+      bucket: "king-hf-bucket/avatar",
       endpoint: "oss-cn-shanghai.aliyuncs.com",
       timeout: "60s",
     },
