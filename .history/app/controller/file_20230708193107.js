@@ -190,18 +190,7 @@ class FileController extends Controller {
   }
 
   //搜索文件
-  async search() {
-    const { ctx, app } = this;
-    const user_id = ctx.authUser.id;
-    ctx.validate({
-      keyword: { required: true, type: "string", desc: "关键字" },
-    });
-    let { keyword } = ctx.query;
-    const Op = app.Sequelize.Op;
-    let rows = await app.model.File.findAll({
-      where: { name: { [Op.like]: `%${keyword}%` }, isdir: 0, user_id },
-    });
-    ctx.apiSuccess({ rows });
-  }
+  asyncsearch(){const{ctx,app}=thisconstuser_id=ctx.authUser.idctx.validate({keyword:{required:true,type:'string',desc:'关键字',},})let{keyword}=ctx.queryconstOp=app.Sequelize.Opletrows=awaitapp.model.File.findAll({where:{name:{[Op.like]:`%${keyword}%`,},isdir:0,user_id,},})ctx.apiSuccess({rows,})}
+
 }
 module.exports = FileController;
