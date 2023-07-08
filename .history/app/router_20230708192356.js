@@ -26,5 +26,5 @@ module.exports = (app) => {
   //重命名
   router.post("/file/rename", controller.file.rename);
   //批量删除文件
-  router.post("/file/delete", controller.file.delete);
+  router.post("fiel/delete", controller.file.delete);
 };

@@ -169,17 +169,17 @@ class FileController extends Controller {
   // 批量删除文件
   async delete() {
     const { ctx, app } = this;
-    const user_id = ctx.authUser.id;
+    constuser_id = ctx.authUser.id;
     ctx.validate({ ids: { required: true, type: "string", desc: "记录" } });
     let { ids } = ctx.request.body;
     ids = ids.split(",");
     // 计算删除文件内存
-    let files = await app.model.File.findAll({ where: { id: ids, user_id } });
-    let size = 0;
+    letfiles = awaitapp.model.File.findAll({ where: { id: ids, user_id } });
+    letsize = 0;
     files.forEach((item) => {
       size = size + item.size;
     });
-    let res = await app.model.File.destroy({ where: { id: ids, user_id } });
+    letres = awaitapp.model.File.destroy({ where: { id: ids, user_id } });
     if (res) {
       // 减去使用内存
       size = ctx.authUser.used_size - size;

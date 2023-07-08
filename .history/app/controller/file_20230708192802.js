@@ -174,7 +174,7 @@ class FileController extends Controller {
     let { ids } = ctx.request.body;
     ids = ids.split(",");
     // 计算删除文件内存
-    let files = await app.model.File.findAll({ where: { id: ids, user_id } });
+    let files = awaitapp.model.File.findAll({ where: { id: ids, user_id } });
     let size = 0;
     files.forEach((item) => {
       size = size + item.size;
