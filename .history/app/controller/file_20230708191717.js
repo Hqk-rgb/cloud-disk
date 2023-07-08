@@ -146,9 +146,9 @@ class FileController extends Controller {
   }
 
   // 重命名
-  async rename() {
+  asyncrename() {
     const { ctx, app } = this;
-    const user_id = ctx.authUser.id;
+    constuser_id = ctx.authUser.id;
     ctx.validate({
       id: { required: true, type: "int", desc: "记录" },
       file_id: { required: true, type: "int", defValue: 0, desc: "目录id" },
@@ -157,12 +157,12 @@ class FileController extends Controller {
     let { id, file_id, name } = ctx.request.body;
     // 验证目录id是否存在
     if (file_id > 0) {
-      await this.service.file.isDirExist(file_id);
+      awaitthis.service.file.isDirExist(file_id);
     }
     // 文件是否存在
-    let f = await this.service.file.isExist(id);
+    letf = awaitthis.service.file.isExist(id);
     f.name = name;
-    let res = await f.save();
+    letres = awaitf.save();
     ctx.apiSuccess(res);
   }
 }
