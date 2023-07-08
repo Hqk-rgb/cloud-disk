@@ -126,9 +126,9 @@ class UserController extends Controller {
   }
 
   //剩余容量
-  async getSize() {
-    const { ctx, service } = this;
-    return ctx.apiSuccess({
+  async getSize(){
+    const {ctx,service} = this;
+    return ctx.api.Success({
       total_size: ctx.authUser.total_size,
       used_size: ctx.authUser.used_size,
     });
