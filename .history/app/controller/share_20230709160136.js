@@ -59,25 +59,25 @@ class ShareController extends Controller {
   // 保存到自己的网盘
   async saveToSelf() {
     const { ctx, app, service } = this;
-    let current_user_id = ctx.authUser.id;
+    letcurrent_user_id = ctx.authUser.id;
     ctx.validate({
       dir_id: { type: "int", required: true, desc: "目录ID" },
       sharedurl: { type: "string", required: true, desc: "分享标识" },
     });
     let { dir_id, sharedurl } = ctx.request.body;
     // 分享是否存在
-    let s = await service.share.isExist(sharedurl, {
+    lets = awaitservice.share.isExist(sharedurl, {
       include: [{ model: app.model.File }],
     });
     if (s.user_id === current_user_id) {
-      return ctx.apiSuccess("本人分享，无需保存");
+      returnctx.apiSuccess("本人分享，无需保存");
     }
     // 文件是否存在
     if (dir_id > 0) {
-      await service.file.isDirExist(dir_id);
+      awaitservice.file.isDirExist(dir_id);
     }
     // 查询该分享目录下的所有数据
-    let getAllFile = async (obj, dirId) => {
+    letgetAllFile = async (obj, dirId) => {
       letdata = {
         name: obj.name,
         ext: obj.ext,
@@ -89,18 +89,18 @@ class ShareController extends Controller {
         url: obj.url,
       };
       // 判断当前用户剩余空间
-      //   if (ctx.authUser.total_size - ctx.authUser.used_size < data.size) {
-      //     return ctx.throw(400, "你的可用内存不足");
-      //   }
+      if (ctx.authUser.total_size - ctx.authUser.used_size < data.size) {
+        returnctx.throw(400, "你的可用内存不足");
+      }
       // 直接创建
-      let o = await app.model.File.create(data);
+      leto = awaitapp.model.File.create(data);
       // 更新user表的使用内存
       ctx.authUser.used_size = ctx.authUser.used_size + parseInt(data.size);
-      await ctx.authUser.save();
+      awaitctx.authUser.save();
       // 目录
       if (obj.isdir) {
         // 继续查询下面其他的数据
-        let rows = await app.model.File.findAll({
+        letrows = awaitapp.model.File.findAll({
           where: { user_id: obj.user_id, file_id: obj.id },
         });
         rows.forEach((item) => {
@@ -109,7 +109,7 @@ class ShareController extends Controller {
         return;
       }
     };
-    await getAllFile(s.file, dir_id);
+    awaitgetAllFile(s.file, dir_id);
     ctx.apiSuccess("ok");
   }
 }

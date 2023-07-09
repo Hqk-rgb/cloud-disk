@@ -77,7 +77,7 @@ class ShareController extends Controller {
       await service.file.isDirExist(dir_id);
     }
     // 查询该分享目录下的所有数据
-    let getAllFile = async (obj, dirId) => {
+    letgetAllFile = async (obj, dirId) => {
       letdata = {
         name: obj.name,
         ext: obj.ext,
@@ -89,18 +89,18 @@ class ShareController extends Controller {
         url: obj.url,
       };
       // 判断当前用户剩余空间
-      //   if (ctx.authUser.total_size - ctx.authUser.used_size < data.size) {
-      //     return ctx.throw(400, "你的可用内存不足");
-      //   }
+      if (ctx.authUser.total_size - ctx.authUser.used_size < data.size) {
+        returnctx.throw(400, "你的可用内存不足");
+      }
       // 直接创建
-      let o = await app.model.File.create(data);
+      leto = awaitapp.model.File.create(data);
       // 更新user表的使用内存
       ctx.authUser.used_size = ctx.authUser.used_size + parseInt(data.size);
-      await ctx.authUser.save();
+      awaitctx.authUser.save();
       // 目录
       if (obj.isdir) {
         // 继续查询下面其他的数据
-        let rows = await app.model.File.findAll({
+        letrows = awaitapp.model.File.findAll({
           where: { user_id: obj.user_id, file_id: obj.id },
         });
         rows.forEach((item) => {
@@ -109,7 +109,7 @@ class ShareController extends Controller {
         return;
       }
     };
-    await getAllFile(s.file, dir_id);
+    awaitgetAllFile(s.file, dir_id);
     ctx.apiSuccess("ok");
   }
 }
