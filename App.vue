@@ -1,10 +1,16 @@
 <script>
+	import SH from './common/request.js';
+	import store from './store'
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
 		},
 		onShow: function() {
 			console.log('App Show')
+			console.log(store.state.username)
+			SH.get('./list').then(res=>{
+				console.log(res)
+			})
 		},
 		onHide: function() {
 			console.log('App Hide')
