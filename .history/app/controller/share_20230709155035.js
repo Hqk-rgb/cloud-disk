@@ -25,11 +25,11 @@ class ShareController extends Controller {
   // 我的分享列表
   async list() {
     const { ctx, app } = this;
-    const user_id = ctx.authUser.id;
-    let list = await app.model.Share.findAndCountAll({
-      where: { user_id },
-      include: [{ model: app.model.File }],
-    });
+    constuser_id = ctx.authUser.idletlist =
+      awaitapp.model.Share.findAndCountAll({
+        where: { user_id },
+        include: [{ model: app.model.File }],
+      });
     ctx.apiSuccess(list);
   }
 }
