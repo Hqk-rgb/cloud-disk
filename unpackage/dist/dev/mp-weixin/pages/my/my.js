@@ -1,8 +1,14 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_index = require("../../store/index.js");
 const _sfc_main = {
   __name: "my",
   setup(__props) {
+    common_vendor.onShow(() => {
+      if (store_index.store.state.user !== null) {
+        console.log(store_index.store.state.user);
+      }
+    });
     const logout = () => {
       common_vendor.index.navigateTo({
         url: "../login/login"

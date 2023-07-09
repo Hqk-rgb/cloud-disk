@@ -1,7 +1,8 @@
 <template>
 	<view>
 		<view class="p-3 flex align-center">
-			<image src="https://s1.ax1x.com/2023/03/25/ppDEXBq.png" style="width: 180rpx;height: 180rpx;border-radius: 50%;"></image>
+			<image src="https://s1.ax1x.com/2023/03/25/ppDEXBq.png"
+				style="width: 180rpx;height: 180rpx;border-radius: 50%;"></image>
 			<view class="flex-1 flex flex-column text-muted font">
 				<view class="flex align-end">
 					<text class="font-md text-dark ml-3">王瀚锋</text>
@@ -10,7 +11,7 @@
 			</view>
 		</view>
 		<view class="bg-light" style="height: 20rpx;"></view>
-		<view class="p-3" >
+		<view class="p-3">
 			<progress class="mb-2" percent="20" active stroke-width="5"></progress>
 			<view class="flex align-center justify-between font">
 				<text class="text-light-muted">总量：500GB</text>
@@ -23,11 +24,20 @@
 			<image src="../../static/arrow-right.png" mode="" style="width: 40rpx;height: 40rpx;"></image>
 		</view>
 		<view class="bg-main text-white flex align-center justify-center font-md py-1 mx-2 rounded-circle"
-		hover-class="bg-main-hover" @click="logout">退出登录</view>
+			hover-class="bg-main-hover" @click="logout">退出登录</view>
 	</view>
 </template>
 
-<script setup> 
+<script setup>
+	import {
+		onShow
+	} from '@dcloudio/uni-app';
+	import store from '/store'
+	onShow(() => {
+		if (store.state.user !== null) {
+			console.log(store.state.user)
+		}
+	})
 	const logout = () => {
 		uni.navigateTo({
 			url: '../login/login'

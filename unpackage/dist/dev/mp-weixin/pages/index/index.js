@@ -17,6 +17,14 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    common_vendor.onLoad(() => {
+      common_vendor.index.request({
+        url: "http://127.0.0.1:7001/list",
+        success: (res) => {
+          console.log(res.data);
+        }
+      });
+    });
     const list = common_vendor.ref([{
       type: "dir",
       name: "盗墓笔记",
