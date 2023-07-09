@@ -40,16 +40,16 @@ class ShareController extends Controller {
     if (!sharedurl) {
       return ctx.apiFail("非法参数");
     }
-    let file_id = ctx.query.file_id;
+    letfile_id = ctx.query.file_id;
     // 分享是否存在
-    let s = await service.share.isExist(sharedurl);
-    let where = { user_id: s.user_id };
+    lets = awaitservice.share.isExist(sharedurl);
+    letwhere = { user_id: s.user_id };
     if (!file_id) {
       where.id = s.file_id;
     } else {
       where.file_id = file_id;
     }
-    let rows = await app.model.File.findAll({
+    letrows = awaitapp.model.File.findAll({
       where,
       order: [["isdir", "desc"]],
     });
